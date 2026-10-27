@@ -1,0 +1,751 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ateliê do Sabor — Cursos de culinária e pré-inscrição</title>
+<meta name="description" content="Culinária Essencial (a partir de 13 anos) e Culinária Kids (6 a 12 anos, com um responsável). Faça sua pré-inscrição no Ateliê do Sabor.">
+<style>
+:root{
+  --bg:#fbf6ee; --surface:#ffffff; --ink:#2b211b; --muted:#5a4c42;
+  --terra:#9c3d18; --terra-dark:#7d2f11; --ocre:#f1c76a; --olive:#2f3a1c; --olive-soft:#e8ecd9;
+  --line:#8a7b6e; --line-soft:#e4d9ca; --erro:#a3121a; --erro-bg:#fdecec; --ok:#1f6b3a; --ok-bg:#e8f5ec;
+  --focus:#0b57d0;
+  --font-title:Georgia,"Times New Roman",serif;
+  --font-body:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --s1:.25rem; --s2:.5rem; --s3:1rem; --s4:1.5rem; --s5:2.5rem; --s6:4rem;
+  --radius:14px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:5rem;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0;background:var(--bg);color:var(--ink);font:1rem/1.5 var(--font-body)}
+[hidden]{display:none!important}
+img{max-width:100%;height:auto;display:block}
+h1,h2,h3{font-family:var(--font-title);line-height:1.2;margin:0 0 var(--s3)}
+h1{font-size:clamp(2rem,6vw,3.25rem)}
+h2{font-size:clamp(1.6rem,4vw,2.25rem)}
+h3{font-size:1.25rem}
+p{margin:0 0 var(--s3)}
+.sr-only{position:absolute;left:-9999px}
+a{color:var(--terra-dark);text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:4px}
+.wrap{width:min(100% - 2rem,70rem);margin-inline:auto}
+section{padding-block:var(--s6) var(--s5)}
+#cursos{padding-top:1rem}
+.eyebrow{font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:.875rem;color:var(--terra-dark);margin-bottom:var(--s2)}
+.lead{font-size:1.125rem;color:var(--muted);max-width:42rem}
+.skip{position:absolute;left:var(--s3);top:-4rem;background:var(--ink);color:#fff;padding:.75rem 1rem;z-index:100;border-radius:8px}
+.skip:focus{top:var(--s2)}
+
+/* botões */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:48px;padding:.75rem 1.4rem;border-radius:999px;border:2px solid var(--terra);background:var(--terra);color:#fff;font:700 1rem/1.2 var(--font-body);text-decoration:none;cursor:pointer;text-align:center}
+.btn:hover{background:var(--terra-dark);border-color:var(--terra-dark)}
+.btn:active{transform:translateY(1px)}
+.btn[disabled]{opacity:.65;cursor:not-allowed}
+.btn.sec{background:transparent;color:var(--ink);border-color:var(--ink)}
+.btn.sec:hover{background:var(--ink);color:#fff}
+.btn.sm{min-height:44px;padding:.5rem 1.1rem}
+
+/* header */
+header.top{position:sticky;top:0;z-index:50;background:rgba(251,246,238,.97);border-bottom:1px solid var(--line-soft)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;min-height:4rem;gap:var(--s3)}
+.logo{font:700 1.35rem var(--font-title);color:var(--ink);text-decoration:none}
+.logo span{color:var(--terra)}
+nav ul{display:flex;gap:var(--s4);list-style:none;margin:0;padding:0;align-items:center}
+nav a{color:var(--ink);text-decoration:none;font-weight:600;padding:.5rem .25rem;display:inline-block;border-bottom:3px solid transparent}
+nav a:hover{border-bottom-color:var(--ocre)}
+nav a[aria-current="true"]{border-bottom-color:var(--terra)}
+nav a.btn{color:#fff;border-bottom:2px solid var(--terra)}
+.menu-btn{display:none;min-height:44px;min-width:44px;background:none;border:0;font:700 1.05rem var(--font-body);padding:0 .25rem;cursor:pointer;color:var(--ink);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:5px;text-decoration-color:transparent}
+.menu-btn:hover,.menu-btn[aria-expanded="true"]{text-decoration-color:var(--terra)}
+@media (max-width:52rem){
+  .top .wrap{gap:0}
+  .menu-btn{display:inline-flex;align-items:center;justify-content:flex-end;margin-left:auto}
+  nav ul{display:none;position:absolute;left:0;right:0;top:100%;background:var(--bg);flex-direction:column;align-items:stretch;gap:0;padding:var(--s3) 1rem;border-bottom:1px solid var(--line-soft)}
+  nav ul.open{display:flex}
+  nav li a{display:block;padding:.85rem .25rem}
+  nav a.btn{margin-top:var(--s2)}
+}
+
+/* hero */
+.hero{padding-block:var(--s5) var(--s6)}
+.hero-grid{display:grid;gap:var(--s5);align-items:center}
+@media (min-width:56rem){.hero-grid{grid-template-columns:1fr 1.1fr}}
+.perfil{display:grid;gap:var(--s3);margin-top:var(--s4)}
+@media (min-width:36rem){.perfil{grid-template-columns:1fr 1fr}}
+.perfil button{display:block;text-align:left;border:2px solid var(--ink);background:var(--surface);color:var(--ink);border-radius:var(--radius);padding:1rem 1.1rem;font:inherit;cursor:pointer;min-height:44px}
+.perfil button strong{display:block;font:700 1.15rem var(--font-title)}
+.perfil button span{color:var(--muted);font-size:.95rem}
+.perfil button:hover{background:var(--olive-soft)}
+.perfil button[aria-pressed="true"]{background:var(--olive);color:#fff;border-color:var(--olive)}
+.perfil button[aria-pressed="true"] span{color:#e8ecd9}
+.mosaic{display:grid;grid-template-columns:1.2fr 1fr;grid-template-rows:auto auto;gap:var(--s2)}
+.mosaic img{width:100%;height:100%;object-fit:cover;border-radius:var(--radius)}
+.mosaic .big{grid-column:1/-1;aspect-ratio:16/9}
+.mosaic .a,.mosaic .b{aspect-ratio:4/3}
+.foto-nota{font-size:.875rem;color:var(--muted);margin:var(--s2) 0 0}
+
+/* faixa do perfil */
+.faixa{background:var(--olive);color:#fff;padding-block:var(--s4)}
+.faixa .wrap{display:flex;flex-wrap:wrap;gap:var(--s3) var(--s5);align-items:center;justify-content:space-between}
+.faixa p{margin:0}
+.faixa dl{display:flex;flex-wrap:wrap;gap:var(--s3) var(--s5);margin:0}
+.faixa dt{font-size:.875rem;color:#d9e0c3}
+.faixa dd{margin:0;font-weight:700;font-size:1.1rem}
+.faixa .btn{background:var(--ocre);border-color:var(--ocre);color:var(--ink)}
+.faixa .btn:hover{background:#fff;border-color:#fff}
+
+/* cursos */
+.curso{display:grid;gap:var(--s5);align-items:start;padding:var(--s5) var(--s4);margin-top:var(--s5);border-radius:24px}
+#essencial{background:#fbebd3}
+#kids{background:#e0ecd3}
+@media (min-width:56rem){
+  .curso{grid-template-columns:1.1fr 1fr;padding:var(--s5)}
+  article.curso:nth-of-type(even){grid-template-columns:1fr 1.1fr}
+  article.curso:nth-of-type(even) .fotos{order:-1}
+}
+.curso .fotos{display:grid;gap:var(--s2);grid-template-columns:1fr 1fr}
+.curso .fotos img{border-radius:var(--radius);width:100%;aspect-ratio:3/4;object-fit:cover}
+.curso .fotos.um{grid-template-columns:1fr}
+.curso .fotos.um img{aspect-ratio:4/5;object-position:50% 40%}
+.badge{display:inline-block;background:var(--ocre);color:var(--ink);font-weight:700;font-size:.875rem;padding:.2rem .7rem;border-radius:999px;margin-bottom:var(--s2)}
+.fatos{list-style:none;padding:0;margin:0 0 var(--s4);display:grid;gap:var(--s2)}
+.fatos li{padding-left:1.6rem;position:relative}
+.fatos li::before{content:"✓";position:absolute;left:0;color:var(--olive);font-weight:700}
+.modulos{counter-reset:m;list-style:none;padding:0;margin:0 0 var(--s4);display:grid;gap:var(--s2)}
+.modulos li{counter-increment:m;display:flex;gap:.75rem;align-items:center;background:var(--surface);border:1px solid var(--line-soft);border-radius:10px;padding:.65rem .9rem}
+.modulos li::before{content:counter(m);flex:none;width:2rem;height:2rem;border-radius:50%;background:var(--olive);color:#fff;display:grid;place-items:center;font-weight:700}
+.preco{background:var(--surface);border:2px solid var(--line-soft);border-radius:var(--radius);padding:var(--s3) var(--s4);margin-bottom:var(--s4)}
+.preco strong{font:700 1.75rem var(--font-title)}
+.preco p{margin:0}
+.preco .peq{font-size:.95rem;color:var(--muted)}
+
+/* turmas */
+.turmas{background:var(--surface)}
+.grupo-t{margin-top:var(--s5)}
+.grupo-t h3{font-size:1.8rem;margin-bottom:var(--s3)}
+.cards-t{display:grid;gap:var(--s3);grid-template-columns:repeat(auto-fit,minmax(15rem,1fr))}
+.cards-t.um{grid-template-columns:minmax(0,24rem)}
+.card-t{background:var(--bg);border:2px solid var(--line-soft);border-radius:var(--radius);padding:var(--s4)}
+.card-topo{display:flex;align-items:center;gap:.75rem;margin-bottom:var(--s2)}
+.card-topo .ico{order:2}
+.card-t .ico{flex:none;width:3.25rem;height:3.25rem;border-radius:50%;display:grid;place-items:center}
+.ico svg{width:1.8rem;height:1.8rem}
+.ico.dia{background:#fdeeb8;color:#7a4e00}
+.ico.noite{background:#1f2a44;color:#f1c76a}
+.card-t h4{font:700 1.3rem var(--font-title);margin:0}
+.card-t dl{margin:0}
+.card-t dt{font-size:.875rem;color:var(--muted);margin-top:.6rem}
+.card-t dd{margin:0;font-weight:600}
+.prox{color:var(--terra-dark)}
+.cta-turmas{margin:var(--s5) 0 0}
+
+/* voltar ao topo */
+.fab{position:fixed;right:1rem;bottom:1.25rem;z-index:60;width:3.25rem;height:3.25rem;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;box-shadow:0 4px 14px rgba(0,0,0,.3);border:2px solid #fff}
+.fab:hover{background:var(--terra-dark)}
+.fab svg{width:1.5rem;height:1.5rem}
+
+/* instrutora */
+.instr{background:var(--olive);color:#fff}
+.instr a{color:var(--ocre)}
+.instr-grid{display:grid;gap:var(--s5);align-items:center}
+@media (min-width:56rem){.instr-grid{grid-template-columns:1fr 1.2fr}}
+.instr img{border-radius:var(--radius);width:100%;max-height:34rem;object-fit:cover}
+.instr .eyebrow{color:var(--ocre)}
+.beneficios{display:grid;gap:var(--s3);margin-top:var(--s4);grid-template-columns:repeat(auto-fit,minmax(14rem,1fr))}
+.beneficios div{background:rgba(255,255,255,.1);border-radius:var(--radius);padding:var(--s3)}
+.beneficios h3{font-size:1.1rem;margin-bottom:var(--s1)}
+.beneficios p{margin:0}
+
+/* faq */
+details{background:var(--surface);border:1px solid var(--line-soft);border-radius:10px;margin-bottom:var(--s2)}
+summary{cursor:pointer;font-weight:700;padding:1rem 1.1rem;min-height:44px}
+details p{padding:0 1.1rem;}
+
+/* formulário */
+.form-sec{background:var(--surface)}
+form{max-width:44rem}
+#pre-inscricao .wrap{max-width:46rem}
+#pre-inscricao .eyebrow,#pre-inscricao h2,#pre-inscricao .lead{text-align:center;margin-inline:auto}
+#pre-inscricao form,#confirmacao{margin-inline:auto}
+fieldset{border:1px solid var(--line);border-radius:var(--radius);padding:var(--s4);margin:0 0 var(--s4);min-width:0}
+legend{font:700 1.2rem var(--font-title);padding:0 .5rem}
+.campo{margin-bottom:var(--s4)}
+label,.rotulo{display:block;font-weight:700;margin-bottom:.25rem}
+.dica{display:block;font-size:.95rem;color:var(--muted);margin-bottom:.4rem;font-weight:400}
+.obr{font-weight:400;color:var(--muted);font-size:.9rem}
+input[type=text],input[type=email],input[type=tel],input[type=number],select,textarea{width:100%;min-height:48px;padding:.65rem .8rem;border:2px solid var(--line);border-radius:10px;font:inherit;background:#fff;color:var(--ink)}
+textarea{min-height:6rem}
+input[aria-invalid="true"],select[aria-invalid="true"],textarea[aria-invalid="true"]{border-color:var(--erro);background:var(--erro-bg)}
+.erro{display:flex;gap:.4rem;color:var(--erro);font-weight:600;margin:.4rem 0 0;font-size:.95rem}
+.erro::before{content:"⚠";flex:none}
+.turma-op{display:flex;gap:.75rem;align-items:flex-start;border:2px solid var(--line-soft);border-radius:12px;padding:.85rem 1rem;margin-bottom:var(--s2);cursor:pointer;font-weight:400}
+.turma-op:has(input:checked){border-color:var(--terra);background:#fdf3ea}
+.turma-op input,.check input,.radio input{width:1.4rem;height:1.4rem;flex:none;margin:.15rem 0 0;accent-color:var(--terra)}
+.turma-op b{display:block}
+.turma-op small{display:block;color:var(--muted);font-size:.95rem}
+.check,.radio{display:flex;gap:.7rem;align-items:flex-start;font-weight:400;margin-bottom:var(--s2);cursor:pointer;min-height:44px}
+.aviso{background:var(--olive-soft);border-left:5px solid var(--olive);padding:.8rem 1rem;border-radius:8px;margin-bottom:var(--s3)}
+.resumo-erros{background:var(--erro-bg);border:2px solid var(--erro);border-radius:var(--radius);padding:var(--s3) var(--s4);margin-bottom:var(--s4)}
+.resumo-erros h3{color:var(--erro);margin-bottom:var(--s2)}
+.resumo-erros a{color:var(--erro);font-weight:600}
+.revisao dl{margin:0 0 var(--s4)}
+.revisao .linha{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s3);justify-content:space-between;align-items:center;padding:.75rem 0;border-bottom:1px solid var(--line-soft)}
+.revisao dt{font-weight:700;flex:1 1 100%}
+.revisao dd{margin:0;flex:1 1 12rem}
+.acoes{display:flex;flex-wrap:wrap;gap:var(--s3)}
+.confirma{background:var(--ok-bg);border:2px solid var(--ok);border-radius:var(--radius);padding:var(--s4)}
+.confirma h3{color:var(--ok)}
+.spin{width:1rem;height:1rem;border:3px solid #fff;border-right-color:transparent;border-radius:50%;display:inline-block}
+@media (prefers-reduced-motion:no-preference){.spin{animation:g .8s linear infinite}@keyframes g{to{transform:rotate(360deg)}}}
+
+/* hover */
+summary{list-style-position:inside;border-radius:10px}
+summary:hover{background:var(--olive-soft)}
+details:hover{border-color:var(--olive)}
+details[open] summary{border-bottom:1px solid var(--line-soft);margin-bottom:var(--s3)}
+.turma-op:hover{border-color:var(--terra);background:#fdf3ea}
+.check:hover,.radio:hover{color:var(--terra-dark)}
+input[type=text]:hover,input[type=email]:hover,input[type=tel]:hover,input[type=number]:hover,select:hover,textarea:hover{border-color:var(--terra)}
+.revisao .btn.sec:hover{background:var(--ink);color:#fff}
+@media (prefers-reduced-motion:no-preference){
+  .btn,summary,details,.turma-op,input,select,textarea,.fab{transition:background-color .15s,border-color .15s,color .15s}
+}
+footer{background:var(--ink);color:#f3ebe0;padding-block:var(--s5)}
+footer a{color:var(--ocre)}
+footer .cols{display:grid;gap:var(--s4);grid-template-columns:repeat(auto-fit,minmax(15rem,1fr))}
+footer h2{font-size:1.2rem}
+footer address{font-style:normal}
+footer details{background:transparent;border-color:#6f6156}
+footer summary{color:#fff}
+.mini{font-size:.9rem;color:#d3c7b8}
+@media (max-width:30rem){fieldset{padding:var(--s3)}}
+@media (forced-colors:active){.btn{border:2px solid ButtonText}}
+</style>
+</head>
+<body>
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#topo" aria-label="Ateliê do Sabor, voltar ao topo">Ateliê do <span>Sabor</span></a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+    <nav aria-label="Principal">
+      <ul id="menu">
+        <li><a href="#cursos">Cursos</a></li>
+        <li><a href="#turmas">Turmas e datas</a></li>
+        <li><a href="#instrutora">Instrutora</a></li>
+        <li><a href="#duvidas">Dúvidas</a></li>
+        <li><a href="#contato">Contato</a></li>
+        <li><a class="btn sm" href="#pre-inscricao">Pré-inscrição</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="conteudo">
+<section class="hero" id="topo" aria-labelledby="t-hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow">Pré-inscrições abertas</p>
+      <h1 id="t-hero">Aprenda a cozinhar com calma, na prática e em boa companhia</h1>
+      <p class="lead">Aulas presenciais para quem quer começar do zero, com a Chef Helena Duarte. Escolha o seu caminho:</p>
+      <div class="perfil" role="group" aria-label="Escolha para quem é o curso">
+        <button type="button" data-perfil="adulto" aria-pressed="false"><strong>Para mim</strong><span>Culinária Essencial · a partir de 13 anos</span></button>
+        <button type="button" data-perfil="kids" aria-pressed="false"><strong>Para uma criança</strong><span>Culinária Kids · 6 a 12 anos, com um responsável</span></button>
+      </div>
+      <p class="foto-nota" id="perfil-status" role="status"></p>
+    </div>
+    <div>
+      <div class="mosaic">
+        <img class="big" src="images/f2.webp" width="1200" height="708" alt="Mulher sorrindo e oferecendo uma colher de pau enquanto um homem corta tomates na cozinha">
+        <img class="a" src="images/f1.webp" width="1035" height="1200" alt="Criança despejando molho de tomate numa frigideira, ajudada por uma mulher sorridente">
+        <img class="b" src="images/f6.webp" width="1200" height="800" alt="Mãos cortando tomates-cereja numa tábua de madeira ao lado de legumes">
+      </div>
+      <p class="foto-nota">Fotos ilustrativas (Unsplash). Não são de aulas do ateliê.</p>
+    </div>
+  </div>
+</section>
+
+<div class="faixa" id="faixa" hidden>
+  <div class="wrap">
+    <div>
+      <p><strong id="faixa-titulo"></strong></p>
+      <dl>
+        <div><dt>Próxima turma</dt><dd id="faixa-data"></dd></div>
+        <div><dt>Dia e horário</dt><dd id="faixa-horario"></dd></div>
+        <div><dt>Valor</dt><dd id="faixa-preco"></dd></div>
+      </dl>
+    </div>
+    <a class="btn" id="faixa-cta" href="#pre-inscricao">Fazer pré-inscrição</a>
+  </div>
+</div>
+
+<section id="cursos" aria-labelledby="t-cursos">
+  <div class="wrap">
+    <p class="eyebrow">Nossos cursos</p>
+    <h2 id="t-cursos">Dois cursos, o mesmo cuidado</h2>
+    <p class="lead">Ingredientes e aventais estão inclusos. Você aprende fazendo, com turmas pequenas.</p>
+
+    <article class="curso" id="essencial" aria-labelledby="t-ess">
+      <div>
+        <span class="badge" hidden>Para você</span>
+        <h3 id="t-ess" style="font-size:1.8rem">Culinária Essencial</h3>
+        <p>Para quem quer aprender a cozinhar do zero. Não precisa ter experiência, e não há limite de idade.</p>
+        <ul class="fatos">
+          <li>Presencial: 8 aulas de 3 horas</li>
+          <li>12 vagas por turma</li>
+          <li>A partir de 13 anos, sem limite de idade</li>
+          <li>Ingredientes e avental inclusos</li>
+          <li>Certificado de conclusão com 75% de presença</li>
+        </ul>
+        <h4 style="margin:0 0 .5rem">O que você aprende</h4>
+        <ol class="modulos">
+          <li>Higiene e segurança na cozinha</li>
+          <li>Cortes e técnicas básicas</li>
+          <li>Caldos e molhos</li>
+          <li>Massas e pães simples</li>
+          <li>Sobremesas</li>
+        </ol>
+        <div class="preco">
+          <p><strong>R$ 480</strong> à vista</p>
+          <p class="peq">ou 4x de R$ 130 no cartão</p>
+        </div>
+        <a class="btn" href="#pre-inscricao" data-curso="essencial">Pré-inscrição no Essencial</a>
+      </div>
+      <div class="fotos um">
+        <img src="images/f4.webp" width="800" height="1200" alt="Mãos de uma pessoa mais velha mexendo uma panela no fogão">
+      </div>
+    </article>
+
+    <article class="curso" id="kids" aria-labelledby="t-kids">
+      <div>
+        <span class="badge" hidden>Para você</span>
+        <h3 id="t-kids" style="font-size:1.8rem">Culinária Kids</h3>
+        <p>Para a criança cozinhar de verdade, acompanhada de um responsável que também vai para a bancada.</p>
+        <ul class="fatos">
+          <li>Presencial: 8 aulas de 2 horas</li>
+          <li>Crianças de 6 a 12 anos</li>
+          <li>Cada criança participa com 1 responsável, que também cozinha na aula</li>
+          <li>8 duplas por turma (criança + responsável)</li>
+          <li>Ingredientes e aventais (da criança e do responsável) inclusos</li>
+          <li>Certificado de conclusão com 75% de presença</li>
+        </ul>
+        <h4 style="margin:0 0 .5rem">O que a dupla aprende</h4>
+        <ol class="modulos">
+          <li>Higiene e segurança na cozinha</li>
+          <li>Lanches saudáveis</li>
+          <li>Massas e pães divertidos</li>
+          <li>Sobremesas</li>
+        </ol>
+        <div class="preco">
+          <p><strong>R$ 560</strong> por dupla (criança + responsável), à vista</p>
+          <p class="peq">ou 4x de R$ 150 no cartão</p>
+        </div>
+        <a class="btn" href="#pre-inscricao" data-curso="kids">Pré-inscrição no Kids</a>
+      </div>
+      <div class="fotos um">
+        <img src="images/f1.webp" width="1035" height="1200" alt="">
+        <p class="foto-nota">Foto ilustrativa (Unsplash).</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="turmas" id="turmas" aria-labelledby="t-turmas">
+  <div class="wrap">
+    <p class="eyebrow">Turmas e datas</p>
+    <h2 id="t-turmas">Compare as turmas e veja quando começam</h2>
+    <p class="lead">Todos os valores incluem ingredientes e aventais. Reembolso integral até 7 dias antes do início.</p>
+    <div class="grupo-t"><h3>Culinária Essencial</h3><div class="cards-t">
+      <div class="card-t"><div class="card-topo"><div class="ico dia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></div><h4>Manhã</h4></div><dl><dt>Dias e horário</dt><dd>Segundas e quartas, 8h–11h</dd><dt>Duração</dt><dd>4 semanas</dd><dt>Início</dt><dd>Toda primeira segunda-feira do mês</dd><dt>Próximo início</dt><dd class="prox" data-prox="manha"></dd><dt>Valor</dt><dd>R$ 480 ou 4x de R$ 130</dd></dl></div>
+      <div class="card-t"><div class="card-topo"><div class="ico noite"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 14.5A9 9 0 0 1 9.5 3a9 9 0 1 0 11.5 11.5z"/></svg></div><h4>Noite</h4></div><dl><dt>Dias e horário</dt><dd>Terças e quintas, 19h–22h</dd><dt>Duração</dt><dd>4 semanas</dd><dt>Início</dt><dd>Toda primeira terça-feira do mês</dd><dt>Próximo início</dt><dd class="prox" data-prox="noite"></dd><dt>Valor</dt><dd>R$ 480 ou 4x de R$ 130</dd></dl></div>
+      <div class="card-t"><div class="card-topo"><div class="ico dia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></div><h4>Sábado</h4></div><dl><dt>Dias e horário</dt><dd>Sábados, 14h–17h</dd><dt>Duração</dt><dd>8 semanas</dd><dt>Início</dt><dd>Primeiro sábado de fev., abr., jun., ago. e out.</dd><dt>Próximo início</dt><dd class="prox" data-prox="sabado"></dd><dt>Valor</dt><dd>R$ 480 ou 4x de R$ 130</dd></dl></div>
+    </div></div>
+    <div class="grupo-t"><h3>Culinária Kids</h3><div class="cards-t um">
+      <div class="card-t"><div class="card-topo"><div class="ico dia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></div><h4>Sábado</h4></div><dl><dt>Dias e horário</dt><dd>Sábados, 9h–11h</dd><dt>Duração</dt><dd>8 semanas</dd><dt>Início</dt><dd>Primeiro sábado de fev., abr., jun., ago. e out.</dd><dt>Próximo início</dt><dd class="prox" data-prox="sabado"></dd><dt>Valor</dt><dd>R$ 560 por dupla ou 4x de R$ 150</dd></dl></div>
+    </div></div>
+    <p class="cta-turmas"><a class="btn" href="#pre-inscricao">Fazer pré-inscrição</a></p>
+  </div>
+</section>
+
+<section class="instr" id="instrutora" aria-labelledby="t-instr">
+  <div class="wrap instr-grid">
+    <img src="images/f5.webp" width="822" height="1200" alt="Cozinheiros finalizando pratos sob lâmpadas de cobre numa cozinha profissional">
+    <div>
+      <p class="eyebrow">Quem conduz as aulas</p>
+      <h2 id="t-instr">Chef Helena Duarte</h2>
+      <p class="lead" style="color:#e8ecd9">Mais de 15 anos de experiência em cozinha profissional, ensinando em linguagem simples para quem está começando.</p>
+      <div class="beneficios">
+        <div><h3>Certificado</h3><p>De conclusão, para os dois cursos, com 75% de presença.</p></div>
+        <div><h3>Reembolso</h3><p>Integral até 7 dias antes do início da turma.</p></div>
+        <div><h3>Tudo incluso</h3><p>Ingredientes e aventais já estão no valor.</p></div>
+      </div>
+      <p class="foto-nota" style="color:#d9e0c3;margin-top:1rem">Foto ilustrativa (Unsplash). Não retrata a instrutora.</p>
+    </div>
+  </div>
+</section>
+
+<section id="duvidas" aria-labelledby="t-duv">
+  <div class="wrap">
+    <p class="eyebrow">Dúvidas frequentes</p>
+    <h2 id="t-duv">Antes de se pré-inscrever</h2>
+    <details><summary>O que é a pré-inscrição?</summary><p>É a demonstração do seu interesse no curso. Ela não cobra nada e ainda não reserva uma vaga.</p></details>
+    <details><summary>Preciso ter experiência na cozinha?</summary><p>Não. O Culinária Essencial é para quem quer aprender do zero e não tem pré-requisito de experiência.</p></details>
+    <details><summary>Quem pode fazer o Culinária Essencial?</summary><p>Qualquer pessoa a partir de 13 anos, sem limite de idade. Menores de 18 anos precisam informar um responsável na pré-inscrição.</p></details>
+    <details><summary>Como funciona o Culinária Kids?</summary><p>A criança, de 6 a 12 anos, participa acompanhada de 1 responsável, que também cozinha na aula. O valor é por dupla.</p></details>
+    <details><summary>O que está incluso no valor?</summary><p>Ingredientes e aventais. No Kids, o avental da criança e o do responsável.</p></details>
+    <details><summary>Como posso pagar?</summary><p>À vista ou em 4 vezes no cartão: 4x de R$ 130 no Essencial e 4x de R$ 150 no Kids.</p></details>
+    <details><summary>Posso desistir?</summary><p>Sim. O reembolso é integral até 7 dias antes do início da turma.</p></details>
+    <details><summary>Recebo certificado?</summary><p>Sim, nos dois cursos, com 75% de presença.</p></details>
+  </div>
+</section>
+
+<section class="form-sec" id="pre-inscricao" aria-labelledby="t-form">
+  <div class="wrap">
+    <p class="eyebrow">Pré-inscrição</p>
+    <h2 id="t-form">Demonstre seu interesse</h2>
+    <p class="lead">Leva cerca de 3 minutos. A pré-inscrição não cobra nada e não reserva vaga.</p>
+    <p class="aviso"><strong>Protótipo:</strong> esta página não tem servidor. Nenhum dado é enviado ou armazenado.</p>
+
+    <div id="confirmacao" role="status" aria-live="polite"></div>
+
+    <form id="form" novalidate>
+      <div id="resumo-erros" class="resumo-erros" tabindex="-1" role="alert" hidden></div>
+
+      <div id="passo-form">
+      <fieldset id="fs-turma">
+        <legend>1. Curso e turma</legend>
+        <p class="dica">Escolha uma opção. Você pode mudar depois, antes de enviar.</p>
+        <div id="grp-turma">
+          <label class="turma-op"><input type="radio" name="turma" value="essencial-manha"><span><b>Essencial · Manhã</b><small>Seg e qua, 8h–11h · 4 semanas · próximo início: <span data-prox="manha"></span> · R$ 480 ou 4x de R$ 130</small></span></label>
+          <label class="turma-op"><input type="radio" name="turma" value="essencial-noite"><span><b>Essencial · Noite</b><small>Ter e qui, 19h–22h · 4 semanas · próximo início: <span data-prox="noite"></span> · R$ 480 ou 4x de R$ 130</small></span></label>
+          <label class="turma-op"><input type="radio" name="turma" value="essencial-sabado"><span><b>Essencial · Sábado</b><small>Sábados, 14h–17h · 8 semanas · próximo início: <span data-prox="sabado"></span> · R$ 480 ou 4x de R$ 130</small></span></label>
+          <label class="turma-op"><input type="radio" name="turma" value="kids"><span><b>Kids · Sábado (criança de 6 a 12 anos + 1 responsável)</b><small>Sábados, 9h–11h · 8 semanas · próximo início: <span data-prox="sabado"></span> · R$ 560 por dupla ou 4x de R$ 150</small></span></label>
+        </div>
+        <p class="erro" id="erro-turma" hidden></p>
+      </fieldset>
+
+      <fieldset>
+        <legend>2. Seus dados</legend>
+        <p class="dica">Dados de quem está preenchendo. Campos com * são obrigatórios.</p>
+        <div class="campo"><label for="nome">Nome completo <span class="obr">(obrigatório)</span></label><input id="nome" name="nome" type="text" autocomplete="name"><p class="erro" id="erro-nome" hidden></p></div>
+        <div class="campo"><label for="email">E-mail <span class="obr">(obrigatório)</span></label><span class="dica" id="d-email">Vamos usar para você acompanhar a inscrição.</span><input id="email" name="email" type="email" inputmode="email" autocomplete="email" aria-describedby="d-email"><p class="erro" id="erro-email" hidden></p></div>
+        <div class="campo"><label for="tel">WhatsApp <span class="obr">(obrigatório)</span></label><span class="dica" id="d-tel">Com DDD. Exemplo: (11) 91234-5678. Pode digitar sem formatação.</span><input id="tel" name="tel" type="tel" inputmode="tel" autocomplete="tel" aria-describedby="d-tel"><p class="erro" id="erro-tel" hidden></p></div>
+      </fieldset>
+
+      <fieldset id="fs-part">
+        <legend>3. Participante</legend>
+        <div id="grp-quem" class="campo">
+          <span class="rotulo" id="l-quem">Quem vai fazer o curso?</span>
+          <label class="radio"><input type="radio" name="quem" value="eu" checked> Eu mesmo(a)</label>
+          <label class="radio"><input type="radio" name="quem" value="outro"> Outra pessoa</label>
+        </div>
+        <p class="aviso" id="aviso-kids" hidden>No Kids, a criança é a participante e você, ou outro responsável, cozinha junto na aula.</p>
+        <div class="campo" id="c-pnome" hidden><label for="pnome">Nome do participante <span class="obr">(obrigatório)</span></label><input id="pnome" name="pnome" type="text" autocomplete="off"><p class="erro" id="erro-pnome" hidden></p></div>
+        <div class="campo"><label for="idade">Idade do participante <span class="obr">(obrigatório)</span></label><span class="dica" id="d-idade">Em anos. Exemplo: 34.</span><input id="idade" name="idade" type="number" inputmode="numeric" min="0" max="120" autocomplete="off" aria-describedby="d-idade" style="max-width:9rem"><p class="erro" id="erro-idade" hidden></p></div>
+      </fieldset>
+
+      <fieldset id="fs-resp" hidden>
+        <legend>4. Responsável</legend>
+        <p class="aviso" id="aviso-resp">Como o participante tem menos de 18 anos, precisamos dos dados de um responsável.</p>
+        <label class="check" id="l-souresp"><input type="checkbox" id="souresp"> Sou o responsável (usar os dados do bloco “Seus dados”)</label>
+        <div id="resp-dados">
+          <div class="campo"><label for="rnome">Nome do responsável <span class="obr">(obrigatório)</span></label><input id="rnome" type="text" autocomplete="off"><p class="erro" id="erro-rnome" hidden></p></div>
+          <div class="campo"><label for="remail">E-mail do responsável <span class="obr">(obrigatório)</span></label><input id="remail" type="email" inputmode="email" autocomplete="off"><p class="erro" id="erro-remail" hidden></p></div>
+          <div class="campo"><label for="rtel">WhatsApp do responsável <span class="obr">(obrigatório)</span></label><span class="dica" id="d-rtel">Com DDD.</span><input id="rtel" type="tel" inputmode="tel" autocomplete="off" aria-describedby="d-rtel"><p class="erro" id="erro-rtel" hidden></p></div>
+        </div>
+        <div class="campo">
+          <label for="parentesco">Grau de parentesco com o participante <span class="obr">(obrigatório)</span></label>
+          <select id="parentesco" autocomplete="off"><option value="">Selecione</option><option>Mãe</option><option>Pai</option><option>Avó</option><option>Avô</option><option>Tia</option><option>Tio</option><option>Outro</option></select>
+          <p class="erro" id="erro-parentesco" hidden></p>
+        </div>
+        <div class="campo" id="c-outro" hidden><label for="parentesco-outro">Qual é o parentesco? <span class="obr">(obrigatório)</span></label><input id="parentesco-outro" type="text" autocomplete="off"><p class="erro" id="erro-parentesco-outro" hidden></p></div>
+      </fieldset>
+
+      <fieldset>
+        <legend><span id="n-alerg">4</span>. Alergias e restrições alimentares</legend>
+        <div class="campo">
+          <label for="alergias">Alergias ou restrições do participante <span class="obr">(opcional)</span></label>
+          <span class="dica" id="d-alerg">Informe só o necessário para a aula, por exemplo: “alergia a amendoim”. Usamos apenas para preparar as aulas com segurança.</span>
+          <textarea id="alergias" autocomplete="off" aria-describedby="d-alerg"></textarea>
+        </div>
+        <label class="check"><input type="checkbox" id="nenhuma"> Não há alergias nem restrições</label>
+      </fieldset>
+
+      <fieldset>
+        <legend><span id="n-cons">5</span>. Consentimentos</legend>
+        <div class="campo">
+          <label class="check"><input type="checkbox" id="c-priv"> <span>Li e concordo com o uso dos meus dados para a pré-inscrição, conforme a <a href="#privacidade">política de privacidade</a>. <span class="obr">(obrigatório)</span></span></label>
+          <p class="erro" id="erro-c-priv" hidden></p>
+        </div>
+        <div class="campo" id="c-saude" hidden>
+          <label class="check"><input type="checkbox" id="c-sens"> <span id="t-sens"></span> <span class="obr">(obrigatório)</span></label>
+          <p class="erro" id="erro-c-sens" hidden></p>
+        </div>
+      </fieldset>
+
+      <div class="acoes"><button class="btn" type="submit" id="btn-rev">Revisar pré-inscrição</button></div>
+      </div>
+
+      <div id="passo-rev" class="revisao" hidden>
+        <h3 id="t-rev" tabindex="-1">Confira antes de enviar</h3>
+        <dl id="rev-lista"></dl>
+        <div class="acoes">
+          <button class="btn" type="button" id="btn-env">Enviar pré-inscrição</button>
+          <button class="btn sec" type="button" id="btn-voltar">Voltar e editar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer id="contato">
+  <div class="wrap cols">
+    <div>
+      <h2>Ateliê do Sabor</h2>
+      <address>Rua das Palmeiras, 85, Centro<br>
+      WhatsApp: <a href="https://wa.me/000000000000">(00) 00000-0000</a><br>
+      E-mail: <a href="mailto:contato@ateliedosabor.example">contato@ateliedosabor.example</a></address>
+      <p class="mini">Endereço, telefone e e-mail fictícios, para este protótipo.</p>
+    </div>
+    <div id="privacidade">
+      <h2>Privacidade</h2>
+      <p>Pedimos só os dados necessários para a pré-inscrição. Alergias e dados de menores de idade são tratados com cuidado e só com o consentimento do próprio participante ou do responsável.</p>
+      <p class="mini">Nesta versão de demonstração, nenhum dado sai do seu navegador.</p>
+    </div>
+    <div>
+      <h2>Créditos</h2>
+      <p class="mini">Fotos: Unsplash (uso gratuito). Imagens ilustrativas, sem relação com o ateliê.</p>
+      <p><a href="#topo">Voltar ao topo</a></p>
+    </div>
+  </div>
+</footer>
+
+<a class="fab" id="fab" href="#topo" aria-label="Voltar ao topo" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></a>
+
+<script>
+(function(){
+  var $=function(s,c){return (c||document).querySelector(s)}, $$=function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s))};
+
+  /* ---------- datas ---------- */
+  function primeiro(y,m,dow){var d=new Date(y,m,1);while(d.getDay()!==dow)d.setDate(d.getDate()+1);return d}
+  function proxMensal(dow,hoje){for(var i=0;i<14;i++){var d=primeiro(hoje.getFullYear(),hoje.getMonth()+i,dow);if(d>=hoje)return d}}
+  function proxSabado(hoje){for(var i=0;i<24;i++){var m=new Date(hoje.getFullYear(),hoje.getMonth()+i,1);if([1,3,5,7,9].indexOf(m.getMonth())<0)continue;var d=primeiro(m.getFullYear(),m.getMonth(),6);if(d>=hoje)return d}}
+  function fmt(d){return d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric'})}
+  var h=new Date();h.setHours(0,0,0,0);
+  var prox={manha:fmt(proxMensal(1,h)),noite:fmt(proxMensal(2,h)),sabado:fmt(proxSabado(h))};
+  $$('[data-prox]').forEach(function(e){e.textContent=prox[e.getAttribute('data-prox')]});
+
+  var TURMAS={
+    'essencial-manha':{nome:'Culinária Essencial · Manhã',horario:'Segundas e quartas, 8h–11h',inicio:prox.manha,valor:'R$ 480 ou 4x de R$ 130',kids:false},
+    'essencial-noite':{nome:'Culinária Essencial · Noite',horario:'Terças e quintas, 19h–22h',inicio:prox.noite,valor:'R$ 480 ou 4x de R$ 130',kids:false},
+    'essencial-sabado':{nome:'Culinária Essencial · Sábado',horario:'Sábados, 14h–17h',inicio:prox.sabado,valor:'R$ 480 ou 4x de R$ 130',kids:false},
+    'kids':{nome:'Culinária Kids',horario:'Sábados, 9h–11h',inicio:prox.sabado,valor:'R$ 560 por dupla ou 4x de R$ 150',kids:true}
+  };
+
+  /* ---------- menu ---------- */
+  var mb=$('.menu-btn'),menu=$('#menu');
+  function fechaMenu(volta){menu.classList.remove('open');mb.setAttribute('aria-expanded','false');if(volta)mb.focus()}
+  mb.addEventListener('click',function(){var o=menu.classList.toggle('open');mb.setAttribute('aria-expanded',o)});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&menu.classList.contains('open'))fechaMenu(true)});
+  $$('#menu a').forEach(function(a){a.addEventListener('click',function(){fechaMenu(false)})});
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){$$('#menu a').forEach(function(a){a.removeAttribute('aria-current')});var a=$('#menu a[href="#'+en.target.id+'"]');if(a)a.setAttribute('aria-current','true')}})},{rootMargin:'-40% 0px -55% 0px'});
+    ['cursos','turmas','instrutora','duvidas','pre-inscricao'].forEach(function(id){var el=document.getElementById(id);if(el)io.observe(el)});
+  }
+
+  /* voltar ao topo: aparece quando o início da página sai da tela */
+  var fab=$('#fab');
+  if('IntersectionObserver' in window){new IntersectionObserver(function(es){fab.hidden=es[0].isIntersecting}).observe($('#topo'))}
+  else{window.addEventListener('scroll',function(){fab.hidden=window.scrollY<600})}
+
+  /* ---------- perfil ---------- */
+  var cursosWrap=$('#cursos .wrap'),ess=$('#essencial'),kids=$('#kids');
+  function escolhePerfil(p,foco){
+    $$('.perfil button').forEach(function(b){b.setAttribute('aria-pressed',b.getAttribute('data-perfil')===p)});
+    var primeiroEl=p==='kids'?kids:ess, outro=p==='kids'?ess:kids;
+    cursosWrap.insertBefore(primeiroEl,outro);
+    $$('.badge').forEach(function(b){b.hidden=true});
+    $('.badge',primeiroEl).hidden=false;
+    var f=$('#faixa');f.hidden=false;
+    if(p==='kids'){
+      $('#faixa-titulo').textContent='Culinária Kids · criança de 6 a 12 anos com 1 responsável';
+      $('#faixa-data').textContent=prox.sabado;$('#faixa-horario').textContent='Sábados, 9h–11h';$('#faixa-preco').textContent='R$ 560 por dupla ou 4x de R$ 150';
+      $('#faixa-cta').textContent='Pré-inscrição no Kids';$('#faixa-cta').setAttribute('data-curso','kids');
+    }else{
+      $('#faixa-titulo').textContent='Culinária Essencial · a partir de 13 anos, sem pré-requisito';
+      $('#faixa-data').textContent=prox.manha+' (turma da manhã) e outras turmas';$('#faixa-horario').textContent='Manhã, noite ou sábado';$('#faixa-preco').textContent='R$ 480 ou 4x de R$ 130';
+      $('#faixa-cta').textContent='Pré-inscrição no Essencial';$('#faixa-cta').setAttribute('data-curso','essencial');
+    }
+    $('#perfil-status').textContent=p==='kids'?'Mostrando primeiro o Culinária Kids. O Essencial continua mais abaixo.':'Mostrando primeiro o Culinária Essencial. O Kids continua mais abaixo.';
+    if(foco)f.scrollIntoView({block:'start'});
+  }
+  $$('.perfil button').forEach(function(b){b.addEventListener('click',function(){escolhePerfil(b.getAttribute('data-perfil'),true)})});
+
+  /* CTAs de curso pré-selecionam turma */
+  $$('[data-curso]').forEach(function(a){a.addEventListener('click',function(){
+    var c=a.getAttribute('data-curso');
+    if(c==='kids'){setTurma('kids')}
+    else if(!$('input[name=turma]:checked')||$('input[name=turma]:checked').value==='kids'){var r=$('input[name=turma]:checked');if(r)r.checked=false;atualiza()}
+  })});
+  function setTurma(v){var r=$('input[name=turma][value="'+v+'"]');if(r){r.checked=true;atualiza()}}
+
+  /* ---------- formulário ---------- */
+  var F=$('#form');
+  var val=function(id){return ($('#'+id).value||'').trim()};
+  function turmaSel(){var r=$('input[name=turma]:checked');return r?r.value:''}
+  function quem(){return $('input[name=quem]:checked').value}
+  function idade(){var v=val('idade');return v===''?NaN:Number(v)}
+  function ehKids(){return turmaSel()==='kids'}
+  function menor(){var i=idade();return ehKids()||(!isNaN(i)&&i<18)}
+  function respVisivel(){return menor()}
+  function digitos(s){return s.replace(/\D/g,'')}
+  function telOk(s){var d=digitos(s);if(d.indexOf('55')===0&&d.length>11)d=d.slice(2);return d.length===10||d.length===11}
+  function emailMsg(s){
+    if(!s)return null;
+    var m=/^[^\s@]+@([^\s@]+\.[^\s@]+)$/.exec(s);
+    if(!m)return 'O e-mail parece incompleto. Use o formato nome@exemplo.com.';
+    var sug={'gmial.com':'gmail.com','gmai.com':'gmail.com','gamil.com':'gmail.com','hotmial.com':'hotmail.com','outlok.com':'outlook.com','gmail.con':'gmail.com'}[m[1].toLowerCase()];
+    if(sug)return 'Você quis dizer '+s.split('@')[0]+'@'+sug+'? Corrija o e-mail para continuar.';
+    return '';
+  }
+
+  function atualiza(){
+    var k=ehKids();
+    var eu=$('input[name=quem][value=eu]');
+    if(k){eu.disabled=true;$('input[name=quem][value=outro]').checked=true}else{eu.disabled=false}
+    $('#aviso-kids').hidden=!k;
+    $('#c-pnome').hidden=quem()!=='outro';
+    $('#grp-quem').hidden=k;
+    if(k)$('#c-pnome').hidden=false;
+    var rv=respVisivel();
+    $('#fs-resp').hidden=!rv;
+    var outroPessoa=quem()==='outro';
+    $('#l-souresp').hidden=!(rv&&outroPessoa);
+    if(!(rv&&outroPessoa))$('#souresp').checked=false;
+    $('#resp-dados').hidden=$('#souresp').checked;
+    $('#c-outro').hidden=!(rv&&$('#parentesco').value==='Outro');
+    var al=val('alergias');
+    var precisaSens=rv||(al!==''&&!$('#nenhuma').checked);
+    $('#c-saude').hidden=!precisaSens;
+    $('#t-sens').textContent=rv?'Autorizo, como responsável, o uso dos dados do participante menor de 18 anos e, se informadas, de alergias e restrições, apenas para a aula e a pré-inscrição.':'Autorizo o uso das informações de alergias e restrições que informei, apenas para preparar as aulas com segurança.';
+    var base=rv?5:4;
+    $('#n-alerg').textContent=base;$('#n-cons').textContent=base+1;
+    $('#d-idade').textContent=k?'Em anos. O Kids é para crianças de 6 a 12 anos.':'Em anos. O Essencial é a partir de 13 anos.';
+    $('#nenhuma').disabled=false;
+    if($('#nenhuma').checked){$('#alergias').value='';$('#alergias').disabled=true}else{$('#alergias').disabled=false}
+  }
+
+  var REGRAS=[
+    {id:'turma',foco:'#grp-turma input',ativo:function(){return true},msg:function(){return turmaSel()?'':'Escolha um curso e uma turma. Selecione uma das quatro opções acima.'},erroId:'erro-turma'},
+    {id:'nome',ativo:function(){return true},msg:function(){var v=val('nome');if(!v)return 'Informe seu nome completo. Ele identifica a sua pré-inscrição.';if(v.length<3||!/\s/.test(v))return 'Digite nome e sobrenome. Exemplo: Maria Souza.';return ''}},
+    {id:'email',ativo:function(){return true},msg:function(){var v=val('email');if(!v)return 'Informe seu e-mail. Vamos usá-lo para você acompanhar a inscrição.';return emailMsg(v)}},
+    {id:'tel',ativo:function(){return true},msg:function(){var v=val('tel');if(!v)return 'Informe seu WhatsApp com DDD.';if(!telOk(v))return 'O número parece incompleto. Digite o DDD e o número. Exemplo: (11) 91234-5678.';return ''}},
+    {id:'pnome',ativo:function(){return quem()==='outro'||ehKids()},msg:function(){var v=val('pnome');if(!v)return ehKids()?'Informe o nome da criança.':'Informe o nome do participante.';if(v.length<2)return 'O nome parece curto demais. Digite o nome completo.';return ''}},
+    {id:'idade',ativo:function(){return true},msg:function(){var v=val('idade');if(v==='')return 'Informe a idade do participante, em anos.';var i=Number(v);if(!/^\d+$/.test(v))return 'Digite só números inteiros, sem vírgula. Exemplo: 34.';if(ehKids()&&(i<6||i>12))return 'O Culinária Kids é para crianças de 6 a 12 anos. Corrija a idade ou escolha o Culinária Essencial (a partir de 13 anos).';if(!ehKids()&&i<13)return 'O Culinária Essencial é a partir de 13 anos. Para uma criança de 6 a 12 anos, escolha o Culinária Kids.';if(i>120)return 'Essa idade parece incorreta. Digite a idade em anos.';return ''}},
+    {id:'rnome',ativo:function(){return respVisivel()&&!$('#souresp').checked},msg:function(){return val('rnome').length<3?'Informe o nome completo do responsável.':''}},
+    {id:'remail',ativo:function(){return respVisivel()&&!$('#souresp').checked},msg:function(){var v=val('remail');if(!v)return 'Informe o e-mail do responsável.';return emailMsg(v)}},
+    {id:'rtel',ativo:function(){return respVisivel()&&!$('#souresp').checked},msg:function(){var v=val('rtel');if(!v)return 'Informe o WhatsApp do responsável com DDD.';return telOk(v)?'':'O número parece incompleto. Digite o DDD e o número.'}},
+    {id:'parentesco',ativo:function(){return respVisivel()},msg:function(){return val('parentesco')?'':'Selecione o grau de parentesco do responsável com o participante.'}},
+    {id:'parentesco-outro',ativo:function(){return respVisivel()&&val('parentesco')==='Outro'},msg:function(){return val('parentesco-outro')?'':'Informe qual é o parentesco. Exemplo: madrinha.'}},
+    {id:'c-priv',ativo:function(){return true},msg:function(){return $('#c-priv').checked?'':'Para continuar, é preciso concordar com o uso dos dados. Marque a caixa acima.'}},
+    {id:'c-sens',ativo:function(){return !$('#c-saude').hidden},msg:function(){return $('#c-sens').checked?'':'Para continuar, marque a autorização acima. Ela é separada do aceite geral.'}}
+  ];
+  var porId={};REGRAS.forEach(function(r){porId[r.id]=r});
+
+  function mostra(r,m){
+    var el=r.id==='turma'?null:$('#'+r.id), er=$('#'+(r.erroId||'erro-'+r.id));
+    if(m){er.textContent=m;er.hidden=false;if(el){el.setAttribute('aria-invalid','true');var d=(el.getAttribute('data-d')||el.getAttribute('aria-describedby')||'').split(' ').filter(Boolean);if(d.indexOf(er.id)<0)d.push(er.id);if(!el.getAttribute('data-d'))el.setAttribute('data-d',el.getAttribute('aria-describedby')||'');el.setAttribute('aria-describedby',d.join(' '))}}
+    else{er.hidden=true;er.textContent='';if(el){el.removeAttribute('aria-invalid');var o=el.getAttribute('data-d');if(o!==null){if(o)el.setAttribute('aria-describedby',o);else el.removeAttribute('aria-describedby')}}}
+  }
+  function valida(r){if(!r.ativo()){mostra(r,'');return ''}var m=r.msg();mostra(r,m);return m}
+  function rotulo(r){if(r.id==='c-priv')return 'Concordância com o uso dos dados';if(r.id==='c-sens')return 'Autorização para dados de saúde ou de menor';var el=r.id==='turma'?$('#fs-turma legend'):($('label[for="'+r.id+'"]')||$('#'+r.id).closest('label')||$('#'+r.id));return (el.textContent||'').replace(/\(obrigatório\)/,'').replace(/^\d+\.\s*/,'').trim()}
+
+  function validaTudo(){
+    var erros=[];
+    REGRAS.forEach(function(r){var m=valida(r);if(m)erros.push({r:r,m:m})});
+    var box=$('#resumo-erros');
+    if(erros.length){
+      box.innerHTML='<h3>Encontramos '+erros.length+(erros.length>1?' pontos':' ponto')+' para corrigir</h3><ul></ul>';
+      var ul=$('ul',box);
+      erros.forEach(function(e){var li=document.createElement('li'),a=document.createElement('a');a.href='#';a.textContent=rotulo(e.r)+': '+e.m;a.addEventListener('click',function(ev){ev.preventDefault();var t=e.r.foco?$(e.r.foco):$('#'+e.r.id);t.focus();t.scrollIntoView({block:'center'})});li.appendChild(a);ul.appendChild(li)});
+      box.hidden=false;box.focus();
+    }else{box.hidden=true;box.innerHTML=''}
+    return erros.length===0;
+  }
+
+  /* validação ao sair do campo */
+  REGRAS.forEach(function(r){
+    if(r.id==='turma')return;
+    var el=$('#'+r.id);
+    var mud=(el.type==='checkbox'||el.tagName==='SELECT');
+    el.addEventListener(mud?'change':'blur',function(){r.t=true;valida(r)});
+    if(!mud)el.addEventListener('input',function(){if(r.t||(r.id==='idade'&&el.value!==''))valida(r)});
+  });
+  ['input','change'].forEach(function(e){F.addEventListener(e,function(ev){
+    var t=ev.target;
+    if(t.name==='turma'){mostra(porId.turma,'');}
+    atualiza();
+    if(t.name==='turma'&&val('idade')!=='')valida(porId.idade);
+    if(e==='change'&&(t.id==='idade')){valida(porId.idade);}
+  })});
+  $('#grp-turma').addEventListener('focusout',function(e){if(!$('#grp-turma').contains(e.relatedTarget)&&!turmaSel()&&e.relatedTarget)valida(porId.turma)});
+  $('#souresp').addEventListener('change',function(){atualiza()});
+  $('#parentesco').addEventListener('change',atualiza);
+  $('#nenhuma').addEventListener('change',atualiza);
+
+  /* revisão */
+  var editando=false;
+  function dados(){
+    var t=TURMAS[turmaSel()],k=ehKids(),eu=quem()==='eu'&&!k,rv=respVisivel();
+    var d={t:t,nome:val('nome'),email:val('email'),tel:val('tel'),pnome:eu?val('nome'):val('pnome'),idade:val('idade'),rv:rv};
+    if(rv){var s=$('#souresp').checked;d.rnome=s?val('nome'):val('rnome');d.remail=s?val('email'):val('remail');d.rtel=s?val('tel'):val('rtel');d.par=val('parentesco')==='Outro'?val('parentesco-outro'):val('parentesco')}
+    d.alerg=$('#nenhuma').checked?'Nenhuma alergia ou restrição':(val('alergias')||'Não informado');
+    return d;
+  }
+  function linha(tit,txt,alvo){return '<div class="linha"><dt>'+tit+'</dt><dd>'+txt+'</dd><button class="btn sec sm" type="button" data-edit="'+alvo+'">Editar<span class="sr" style="position:absolute;left:-9999px"> '+tit+'</span></button></div>'}
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function mostraRev(){
+    var d=dados(),h='';
+    h+=linha('Curso e turma',esc(d.t.nome)+'<br>'+esc(d.t.horario)+'<br>Próximo início: '+d.t.inicio+'<br>Valor: '+esc(d.t.valor),'#grp-turma input');
+    h+=linha('Seus dados',esc(d.nome)+'<br>'+esc(d.email)+'<br>'+esc(d.tel),'#nome');
+    h+=linha('Participante',esc(d.pnome)+', '+esc(d.idade)+' anos',ehKids()?'#pnome':'#idade');
+    if(d.rv)h+=linha('Responsável',esc(d.rnome)+' ('+esc(d.par)+')<br>'+esc(d.remail)+'<br>'+esc(d.rtel),'#parentesco');
+    h+=linha('Alergias e restrições',esc(d.alerg),'#alergias');
+    $('#rev-lista').innerHTML=h;
+    $('#passo-form').hidden=true;$('#passo-rev').hidden=false;$('#t-rev').focus();$('#t-rev').scrollIntoView({block:'center'});
+  }
+  $('#rev-lista').addEventListener('click',function(e){var b=e.target.closest('[data-edit]');if(!b)return;voltaForm($(b.getAttribute('data-edit')))});
+  function voltaForm(alvo){$('#passo-rev').hidden=true;$('#passo-form').hidden=false;atualiza();var t=alvo&&!alvo.disabled?alvo:$('#nome');t.focus();t.scrollIntoView({block:'center'})}
+  $('#btn-voltar').addEventListener('click',function(){voltaForm($('#nome'))});
+
+  F.addEventListener('submit',function(e){e.preventDefault();atualiza();if(validaTudo())mostraRev()});
+
+  var enviando=false;
+  $('#btn-env').addEventListener('click',function(){
+    if(enviando)return;enviando=true;
+    var b=this;b.disabled=true;b.setAttribute('aria-busy','true');b.innerHTML='<span class="spin" aria-hidden="true"></span> Enviando…';
+    setTimeout(function(){
+      var d=dados();enviando=false;
+      F.hidden=true;
+      var c=$('#confirmacao');
+      c.innerHTML='<div class="confirma"><h3 id="t-conf" tabindex="-1">Recebemos sua pré-inscrição, '+esc(d.nome.split(' ')[0])+'!</h3>'+
+        '<p>Você receberá um e-mail em <strong>'+esc(d.email)+'</strong> para acompanhar a sua inscrição.</p>'+
+        '<ul class="fatos"><li><strong>Curso e turma:</strong> '+esc(d.t.nome)+', '+esc(d.t.horario)+'</li><li><strong>Próximo início:</strong> '+d.t.inicio+'</li><li><strong>Participante:</strong> '+esc(d.pnome)+', '+esc(d.idade)+' anos</li>'+(d.rv?'<li><strong>Responsável:</strong> '+esc(d.rnome)+' ('+esc(d.par)+')</li>':'')+'<li><strong>Valor:</strong> '+esc(d.t.valor)+'</li></ul>'+
+        '<p><strong>O que acontece agora:</strong> esta pré-inscrição demonstra o seu interesse. Ela não cobra nada e ainda não reserva uma vaga. Se desistir, o reembolso é integral até 7 dias antes do início da turma.</p>'+
+        '<p>Dúvidas? Fale pelo WhatsApp <a href="https://wa.me/000000000000">(00) 00000-0000</a> ou pelo e-mail <a href="mailto:contato@ateliedosabor.example">contato@ateliedosabor.example</a>.</p>'+
+        '<p class="aviso"><strong>Protótipo:</strong> nenhum dado foi enviado ou armazenado, e nenhum e-mail foi disparado.</p>'+
+        '<p><a class="btn" href="#topo">Voltar ao início</a></p></div>';
+      var t=$('#t-conf');t.focus();t.scrollIntoView({block:'center'});
+    },700);
+  });
+
+  /* inicial */
+  atualiza();
+})();
+</script>
+</body>
+</html>
